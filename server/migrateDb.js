@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 const batchSize = 10;
-const sourceUri = 'mongodb+srv://cluster0.7xgqd.mongodb.net/movies?retryWrites=true&w=majority';
+const sourceUri = 'mongodb+srv://admin:password1234@cluster0.itss7tr.mongodb.net/?retryWrites=true&w=majority';
 const destUri = 'mongodb+srv://TeamTMVA:Movie123@cluster0.ffctzvx.mongodb.net/cinema?retryWrites=true&w=majority';
 
 async function migrateMovies() {

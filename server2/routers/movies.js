@@ -7,7 +7,7 @@ let bodyParser = require('body-parser');
 let jsonParser = bodyParser.json();
 
 mongoose.connect(
-	'mongodb+srv://admin:Samuel@cluster0.aobh3oj.mongodb.net/cinema'
+	'mongodb+srv://admin:password1234@cluster0.itss7tr.mongodb.net/cinema'
 );
 
 const Film = require('../model/Film.js');
