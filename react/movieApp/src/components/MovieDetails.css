@@ -1,0 +1,27 @@
+.movie-details {
+  color: white;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.movie-details h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.movie-details p {
+  margin: 0.5rem 0;
+}
+
+.movie-details div {
+  margin: 0.5rem 0;
+}
+
+.movie-details div p {
+  display: inline-block;
+  background-color: #444;
+  color: white;
+  padding: 0.3rem;
+  margin: 0 0.5rem 0.5rem 0;
+  border-radius: 0.2rem;
+}

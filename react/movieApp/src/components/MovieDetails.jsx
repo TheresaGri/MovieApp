@@ -1,8 +1,10 @@
+import "./MovieDetails.css"
+
 export default function MovieDetails(props) {
   let movie = props.movie;
 
   return (
-    <div className={props.className}>
+    <div className={`movie-details ${props.className}`}>
       <h2>{movie.name}</h2>
       <p>{movie.plot}</p>
       <div>

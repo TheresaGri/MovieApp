@@ -8,6 +8,7 @@ import MovieDetails from "./components/MovieDetails";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [title, setTitle] = useState("");
   const [classOfMovieList, setClassOfMovieList] = useState(
     "searchField_and_MovieList"
   );
@@ -21,40 +22,31 @@ function App() {
     duration: 157,
     year: 2023,
     imdbRating: 8.4,
-    poster: "asdasd"
+    poster: "asdasd",
   });
   const [classOfMovieDetail, setClassOfMovieDetail] = useState(
     "movieDetail_container_hidden"
   );
 
   useEffect(() => {
-    async function loadMovies() {
-      setMovies(await fetchMovies());
+    async function loadMovies(title) {
+      setMovies(await fetchMovies(title));
     }
-    loadMovies();
-  }, []);
+    loadMovies(title);
+  }, [title]);
+
+  console.log(movies);
 
   function changeMovies(event) {
-    const value = event.target.value.toLowerCase();
-    if (value !== "") {
-      const filteredMovies = movies.filter((movie) =>
-        movie.name.toLowerCase().includes(value)
-      );
-      setMovies(filteredMovies);
-    } else {
-      async function loadMovies() {
-        setMovies(await fetchMovies());
-      }
-      loadMovies();
-    }
+    setTitle(event.target.value);
   }
 
   function passMovie(movie) {
-    console.log(movie);
-    setClickedMovie( movie );
+    setClickedMovie(movie);
     setClassOfMovieList("searchField_and_MovieList_hidden");
     setClassOfAboutPage("aboutPage_container_hidden");
     setClassOfMovieDetail("movieDetail_container");
+    setTitle("");
   }
 
   console.log(clickedMovie);
@@ -78,12 +70,13 @@ function App() {
       <MovieDetails
         movie={clickedMovie}
         className={classOfMovieDetail}
-      ></MovieDetails> 
+      ></MovieDetails>
       <div className={classOfMovieList}>
         <input
           type="text"
           placeholder="Search for movies"
           className="searchField"
+          value={title}
           onChange={changeMovies}
         ></input>
         <Homepage movies={movies} showInfo={passMovie} />
