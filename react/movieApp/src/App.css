@@ -3,5 +3,32 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: white;
+}
+/* .searchField {
+} */
+
+.searchField_and_MovieList {
+  display: block;
+}
+.searchField_and_MovieList_hidden {
+  display: none;
+}
+.aboutPage_container{
+  color: white;
+  display: block
 }
 
+.aboutPage_container_hidden {
+  display: none;
+}
+
+
+.movieDetail_container{
+  display: block;
+  color: white;
+}
+.movieDetail_container_hidden {
+  display: none;
+  color: white;
+}
