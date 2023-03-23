@@ -1,0 +1,12 @@
+.popup {
+	border: 1px solid white;
+	padding: 5%;
+}
+
+.error {
+	color: red;
+}
+
+.field {
+	margin: 1%;
+}
