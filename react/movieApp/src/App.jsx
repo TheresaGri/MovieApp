@@ -14,7 +14,15 @@ function App() {
   const [classOfAboutPage, setClassOfAboutPage] = useState(
     "aboutPage_container_hidden"
   );
-  const [clickedMovie, setClickedMovie] = useState({});
+  const [clickedMovie, setClickedMovie] = useState({
+    plot: "Hello",
+    name: "Hello",
+    genres: [],
+    duration: 157,
+    year: 2023,
+    imdbRating: 8.4,
+    poster: "asdasd"
+  });
   const [classOfMovieDetail, setClassOfMovieDetail] = useState(
     "movieDetail_container_hidden"
   );
@@ -42,13 +50,14 @@ function App() {
   }
 
   function passMovie(movie) {
-    setClickedMovie({ ...clickedMovie, movie });
+    console.log(movie);
+    setClickedMovie( movie );
     setClassOfMovieList("searchField_and_MovieList_hidden");
     setClassOfAboutPage("aboutPage_container_hidden");
     setClassOfMovieDetail("movieDetail_container");
   }
 
-  console.log(clickedMovie.movie);
+  console.log(clickedMovie);
 
   return (
     <div className="App">
@@ -67,9 +76,9 @@ function App() {
       <h1>Movie App</h1>
       <AboutThePage className={classOfAboutPage}></AboutThePage>
       <MovieDetails
-        movie={clickedMovie.movie}
+        movie={clickedMovie}
         className={classOfMovieDetail}
-      ></MovieDetails>
+      ></MovieDetails> 
       <div className={classOfMovieList}>
         <input
           type="text"

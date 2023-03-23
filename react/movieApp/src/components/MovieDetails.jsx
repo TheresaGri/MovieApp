@@ -1,6 +1,6 @@
 export default function MovieDetails(props) {
-  let movie = props.movie?.movie; 
-  
+  let movie = props.movie;
+
   return (
     <div className={props.className}>
       <h2>{movie.name}</h2>
