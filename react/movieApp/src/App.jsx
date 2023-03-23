@@ -70,19 +70,7 @@ function App() {
   }, [movieId]);
 
   console.log(comments);
-  let genresArray = []
-  function getAllMovieGenres() {
-    for(let x of movies) {
-      for(let i = 0; i < x.genres.length; i++) {
-        if(!genresArray.includes(x.genres[i])) {
-          genresArray.push(x.genres[i])
-        }
-      }
-    }
-    console.log(genresArray)
-  }
-
-  getAllMovieGenres()
+  let genresArray = ['Comedy', 'Drama', 'Romance', 'Film-Noir', 'Family', 'Fantasy', 'War', 'Animation', 'Mystery', 'Thriller', 'Crime', 'Documentary', 'Short', 'History', 'Horror', 'Action', 'Western', 'Sci-Fi', 'Adventure', 'Musical', 'Music', 'Biography', 'Sport', 'News']
 
   return (
     <div className="App">
