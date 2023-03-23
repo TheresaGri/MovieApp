@@ -8,7 +8,7 @@ export default function Homepage(props) {
         {props.movies.map((movie) => {
           return (
             <div>
-              <img src={movie.poster} className="moviePosters" onClick={() => props.showInfo(movie)}/>
+              <img src={movie.poster} className="moviePosters" onClick={() => props.onShowInfo(movie)}/>
               <div>
                 {movie.name}({movie.year})
               </div>
