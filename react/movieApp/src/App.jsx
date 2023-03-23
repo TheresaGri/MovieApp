@@ -5,10 +5,13 @@ import Homepage from "./components/Homepage";
 import Header from "./components/Header";
 import AboutThePage from "./components/AboutThePage";
 import MovieDetails from "./components/MovieDetails";
+import GenreFilter from "./components/GenreFilter";
+import fetchMoviesByGenre from "../api/fetchMoviesByGenre";
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [title, setTitle] = useState("");
+  const [genre, setGenre] = useState("")
   const [classOfMovieList, setClassOfMovieList] = useState(
     "searchField_and_MovieList"
   );
@@ -35,10 +38,21 @@ function App() {
     loadMovies(title);
   }, [title]);
 
+  useEffect(() => {
+    async function loadMoviesByGenre(genre) {
+      setMovies(await fetchMoviesByGenre(genre));
+    }
+    loadMoviesByGenre(genre);
+  }, [genre]);
+
   console.log(movies);
 
   function changeMovies(event) {
     setTitle(event.target.value);
+  }
+
+  function filterByGenre(event) {
+    setGenre(event.target.value)
   }
 
   function passMovie(movie) {
@@ -50,6 +64,19 @@ function App() {
   }
 
   console.log(clickedMovie);
+  let genresArray = []
+  function getAllMovieGenres() {
+    for(let x of movies) {
+      for(let i = 0; i < x.genres.length; i++) {
+        if(!genresArray.includes(x.genres[i])) {
+          genresArray.push(x.genres[i])
+        }
+      }
+    }
+    console.log(genresArray)
+  }
+
+  getAllMovieGenres()
 
   return (
     <div className="App">
@@ -79,6 +106,9 @@ function App() {
           value={title}
           onChange={changeMovies}
         ></input>
+        <GenreFilter
+        genres={genresArray}
+        onChange={filterByGenre}/>
         <Homepage movies={movies} showInfo={passMovie} />
       </div>
     </div>
