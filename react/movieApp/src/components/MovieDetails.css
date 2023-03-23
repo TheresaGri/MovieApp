@@ -25,3 +25,8 @@
   margin: 0 0.5rem 0.5rem 0;
   border-radius: 0.2rem;
 }
+
+.movie-details img {
+  width: 300px;
+  height: 350px;
+}

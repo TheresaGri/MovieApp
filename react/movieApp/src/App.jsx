@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import fetchComments from "../api/fetchComments";
 import fetchMovies from "../api/fetchMovies";
 import "./App.css";
 import Homepage from "./components/Homepage";
 import Header from "./components/Header";
 import AboutThePage from "./components/AboutThePage";
 import MovieDetails from "./components/MovieDetails";
+import CommentSection from "./components/CommentSection";
 import GenreFilter from "./components/GenreFilter";
 import fetchMoviesByGenre from "../api/fetchMoviesByGenre";
 
@@ -12,12 +14,12 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("")
-  const [classOfMovieList, setClassOfMovieList] = useState(
-    "searchField_and_MovieList"
-  );
-  const [classOfAboutPage, setClassOfAboutPage] = useState(
-    "aboutPage_container_hidden"
-  );
+  const [classOfMovieList, setClassOfMovieList] = useState(true);
+  const [classOfAboutPage, setClassOfAboutPage] = useState(false);
+  const [movieId, setMovieId] = useState("573a1391f29313caabcd9600");
+  const [comments, setComments] = useState([]);
+
+  const [movieInfoComments, setMovieInfoComment] = useState(false);
   const [clickedMovie, setClickedMovie] = useState({
     plot: "Hello",
     name: "Hello",
@@ -27,9 +29,6 @@ function App() {
     imdbRating: 8.4,
     poster: "asdasd",
   });
-  const [classOfMovieDetail, setClassOfMovieDetail] = useState(
-    "movieDetail_container_hidden"
-  );
 
   useEffect(() => {
     async function loadMovies(title) {
@@ -45,8 +44,6 @@ function App() {
     loadMoviesByGenre(genre);
   }, [genre]);
 
-  console.log(movies);
-
   function changeMovies(event) {
     setTitle(event.target.value);
   }
@@ -57,13 +54,22 @@ function App() {
 
   function passMovie(movie) {
     setClickedMovie(movie);
-    setClassOfMovieList("searchField_and_MovieList_hidden");
-    setClassOfAboutPage("aboutPage_container_hidden");
-    setClassOfMovieDetail("movieDetail_container");
+    setClassOfMovieList(false);
+    setClassOfAboutPage(false);
+    setMovieInfoComment(true);
     setTitle("");
+    setMovieId(movie._id);
   }
 
-  console.log(clickedMovie);
+  useEffect(() => {
+    async function loadComments(movieId) {
+      let data = await fetchComments(movieId);
+      setComments(data);
+    }
+    loadComments(movieId);
+  }, [movieId]);
+
+  console.log(comments);
   let genresArray = []
   function getAllMovieGenres() {
     for(let x of movies) {
@@ -82,35 +88,41 @@ function App() {
     <div className="App">
       <Header
         aboutButtonClick={() => {
-          setClassOfMovieList("searchField_and_MovieList_hidden");
-          setClassOfAboutPage("aboutPage_container");
-          setClassOfMovieDetail("movieDetail_container_hidden");
+          setClassOfMovieList(false);
+          setClassOfAboutPage(true);
+          setMovieInfoComment(false);
+
         }}
         homeButtonClick={() => {
-          setClassOfMovieList("searchField_and_MovieList");
-          setClassOfAboutPage("aboutPage_container_hidden");
-          setClassOfMovieDetail("movieDetail_container_hidden");
+          setClassOfMovieList(true);
+          setClassOfAboutPage(false);
+          setMovieInfoComment(false);
         }}
       ></Header>
       <h1>Movie App</h1>
-      <AboutThePage className={classOfAboutPage}></AboutThePage>
-      <MovieDetails
-        movie={clickedMovie}
-        className={classOfMovieDetail}
-      ></MovieDetails>
-      <div className={classOfMovieList}>
-        <input
-          type="text"
-          placeholder="Search for movies"
-          className="searchField"
-          value={title}
-          onChange={changeMovies}
-        ></input>
-        <GenreFilter
+      {classOfAboutPage && <AboutThePage></AboutThePage>}
+
+      {movieInfoComments && (
+        <div>
+          <MovieDetails movie={clickedMovie}></MovieDetails>
+          <CommentSection commentsArray={comments}></CommentSection>
+        </div>
+      )}
+      {classOfMovieList && (
+        <div>
+          <input
+            type="text"
+            placeholder="Search for movies"
+            className="searchField"
+            value={title}
+            onChange={changeMovies}
+          ></input>
+          <GenreFilter
         genres={genresArray}
         onChange={filterByGenre}/>
-        <Homepage movies={movies} showInfo={passMovie} />
-      </div>
+        <Homepage movies={movies} onShowInfo={passMovie} />
+        </div>
+      )}
     </div>
   );
 }

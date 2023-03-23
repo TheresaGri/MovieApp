@@ -38,7 +38,7 @@ moviesRouter.get("/", async (req, res) => {
     }
 
     if (req.query["genre"] !== undefined) {
-      query = { genres: req.query["genre"] };
+      query = { genres: {$regex: req.query["genre"], $options: "i"} };
     }
 
     movies = await Film.find(query)
