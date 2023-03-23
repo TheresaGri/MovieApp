@@ -1,137 +1,141 @@
-const mongoose = require('mongoose');
-const express = require('express');
+const mongoose = require("mongoose");
+const express = require("express");
 const moviesRouter = express.Router();
 
-let bodyParser = require('body-parser');
+let bodyParser = require("body-parser");
 
 let jsonParser = bodyParser.json();
 
 mongoose.connect(
-	'mongodb+srv://admin:password1234@cluster0.itss7tr.mongodb.net/cinema'
+  "mongodb+srv://admin:password1234@cluster0.itss7tr.mongodb.net/cinema"
 );
 
-const Film = require('../model/Film.js');
+const Film = require("../model/Film.js");
 
-moviesRouter.get('/', async (req, res) => {
-	try {
-		let query = {};
-		let movies;
-		let sorting = {};
-		const page = parseInt(req.query.page);
-		const limit = parseInt(req.query.limit);
-		if (req.query['year'] !== undefined) {
-			query = { year: req.query['year'] };
-		}
-		if (req.query['title'] !== undefined) {
-			query = { name: { $regex: req.query['title'], $options: 'i' } };
-		}
+moviesRouter.get("/", async (req, res) => {
+  try {
+    let query = {};
+    let movies;
+    let sorting = {};
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    if (req.query["year"] !== undefined) {
+      query = { year: req.query["year"] };
+    }
+    if (req.query["title"] !== undefined) {
+      query = { name: { $regex: req.query["title"], $options: "i" } };
+    }
 
-		if (req.query['sortAscending'] !== undefined) {
-			if (req.query['sortAscending'] === 'year') {
-				sorting = { year: 1 };
-			}
-		}
-		if (req.query['sortDescending'] !== undefined) {
-			if (req.query['sortDescending'] === 'year') {
-				sorting = { year: -1 };
-			}
-		}
+    if (req.query["sortAscending"] !== undefined) {
+      if (req.query["sortAscending"] === "year") {
+        sorting = { year: 1 };
+      }
+    }
+    if (req.query["sortDescending"] !== undefined) {
+      if (req.query["sortDescending"] === "year") {
+        sorting = { year: -1 };
+      }
+    }
 
-		movies = await Film.find(query)
-			.sort(sorting)
-			.skip(page * limit)
-			.limit(limit);
+    if (req.query["genre"] !== undefined) {
+      query = { genres: req.query["genre"] };
+    }
 
-		res.json(movies);
-	} catch (error) {
-		console.error(error);
-	}
+    movies = await Film.find(query)
+      .sort(sorting)
+      .skip(page * limit)
+      .limit(limit);
+
+    res.json(movies);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
-moviesRouter.get('/:id', async (req, res) => {
-	try {
-		let movieById = await Film.findById(req.params.id);
-		if (movieById === null) {
-			res.status(404).json({ error: 'Movie not found' });
-		} else {
-			res.json(movieById);
-		}
-	} catch (error) {
-		console.error(error);
-	}
+moviesRouter.get("/:id", async (req, res) => {
+  try {
+    let movieById = await Film.findById(req.params.id);
+    if (movieById === null) {
+      res.status(404).json({ error: "Movie not found" });
+    } else {
+      res.json(movieById);
+    }
+  } catch (error) {
+    console.error(error);
+  }
 });
 
-moviesRouter.post('/', jsonParser, async (req, res) => {
-	try {
-		console.log(req.body);
+moviesRouter.post("/", jsonParser, async (req, res) => {
+  try {
+    console.log(req.body);
 
-		let name = req.body.name;
-		let plot = req.body.plot;
-		let genres = req.body.genres;
-		let duration = req.body.duration;
-		let year = req.body.year;
-		let imdbRating = req.body.imdbRating;
-		let poster = req.body.poster;
+    let name = req.body.name;
+    let plot = req.body.plot;
+    let genres = req.body.genres;
+    let duration = req.body.duration;
+    let year = req.body.year;
+    let imdbRating = req.body.imdbRating;
+    let poster = req.body.poster;
 
-		let newFilm = new Film({
-			name,
-			plot,
-			genres,
-			duration,
-			year,
-			imdbRating,
-			poster,
-		});
+    let newFilm = new Film({
+      name,
+      plot,
+      genres,
+      duration,
+      year,
+      imdbRating,
+      poster,
+    });
 
-		newFilm
-			.save()
-			.then((film) => res.json(film))
-			.catch((err) => res.status(400).json({ success: false, err }));
+    newFilm
+      .save()
+      .then((film) => res.json(film))
+      .catch((err) => res.status(400).json({ success: false, err }));
 
-		console.log('Movie successfully created');
-	} catch (err) {
-		console.log(err);
-	}
+    console.log("Movie successfully created");
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-moviesRouter.patch('/:id', jsonParser, async (req, res) => {
-	try {
-		console.log(req.body);
-		let itemToChange = req.params.id;
+moviesRouter.patch("/:id", jsonParser, async (req, res) => {
+  try {
+    console.log(req.body);
+    let itemToChange = req.params.id;
 
-		let name = req.body.name;
-		let plot = req.body.plot;
-		let genres = req.body.genres;
-		let duration = req.body.duration;
-		let year = req.body.year;
-		let imdbRating = req.body.imdbRating;
-		let poster = req.body.poster;
+    let name = req.body.name;
+    let plot = req.body.plot;
+    let genres = req.body.genres;
+    let duration = req.body.duration;
+    let year = req.body.year;
+    let imdbRating = req.body.imdbRating;
+    let poster = req.body.poster;
 
-		await Film.findByIdAndUpdate(itemToChange, {
-			name,
-			plot,
-			genres,
-			duration,
-			year,
-			imdbRating,
-			poster,
-		});
-		res.status(200).json({ success: true });
-	} catch (err) {
-		console.log(err);
-	}
+    await Film.findByIdAndUpdate(itemToChange, {
+      name,
+      plot,
+      genres,
+      duration,
+      year,
+      imdbRating,
+      poster,
+    });
+    res.status(200).json({ success: true });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-moviesRouter.delete('/:id', jsonParser, async (req, res) => {
-	try {
-		console.log(req.body);
-		let itemToChange = req.params.id;
+moviesRouter.delete("/:id", jsonParser, async (req, res) => {
+  try {
+    console.log(req.body);
+    let itemToChange = req.params.id;
 
-		await Film.findByIdAndDelete(itemToChange);
-		res.status(200).json({ success: true });
-	} catch (err) {
-		console.log(err);
-	}
+    await Film.findByIdAndDelete(itemToChange);
+    res.status(200).json({ success: true });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = moviesRouter;
