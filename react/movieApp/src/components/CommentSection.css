@@ -1,19 +1,4 @@
-/* .comments_container {
-
-}
 .comments {
-  background-color:beige;
-  color: black;
-  border-radius: 25px;
-  
-}
-
-.comments h1 {
-  position: absolute;
-}
- */
-
- .comments {
   display: flex;
   flex-direction: column;
   background-color: beige;
@@ -33,12 +18,12 @@
   font-size: 0.9em;
 }
 
-.mailOfComment{
+.mailOfComment {
   margin: 0 0 10px 0;
   font-size: 0.8em;
 }
 
-.textOfComment{
+.textOfComment {
   margin: 0;
   font-size: 1em;
 }
