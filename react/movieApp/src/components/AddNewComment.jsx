@@ -22,7 +22,7 @@ export default function AddNewComment(props) {
 			text: comment,
 			date: date,
 		};
-		console.log(userInput);
+		//console.log(userInput);
 
 		setName('');
 		setEmail('');
@@ -80,7 +80,7 @@ export default function AddNewComment(props) {
 						<br />
 						{errorMessage2 && <div className='error'>{errorMessage2}</div>}
 
-						{isEmail(email) && errorMessage2 === '' ? (
+						{isEmail(email) && comment.length > 9 ? (
 							<div>
 								<button type='submit'>Submit</button>
 							</div>
