@@ -1,0 +1,23 @@
+li {
+	display: table-cell;
+	color: white !important;
+	padding: 5%;
+}
+
+a {
+	color: white !important;
+}
+
+a:hover {
+	color: bisque !important;
+}
+
+.page-item {
+	padding: 10px !important;
+}
+
+.navigation-box {
+	display: flex;
+	justify-content: center !important;
+	align-items: center !important;
+}
