@@ -60,22 +60,22 @@ function App() {
     loadMovies(title, genre);
   }, [title, genre]);
 
-  function changeMovies(event) {
-    setTitle(event.target.value);
-  }
+	function changeMovies(event) {
+		setTitle(event.target.value);
+	}
 
   function filterByGenre(event) {
     setGenre(event.target.value);
   }
 
-  function passMovie(movie) {
-    setClickedMovie(movie);
-    setClassOfMovieList(false);
-    setClassOfAboutPage(false);
-    setMovieInfoComment(true);
-    setTitle("");
-    setMovieId(movie._id);
-  }
+	function passMovie(movie) {
+		setClickedMovie(movie);
+		setClassOfMovieList(false);
+		setClassOfAboutPage(false);
+		setMovieInfoComment(true);
+		setTitle('');
+		setMovieId(movie._id);
+	}
 
   return (
     <div className="App">
