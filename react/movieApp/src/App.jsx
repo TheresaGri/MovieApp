@@ -8,17 +8,14 @@ import AboutThePage from "./components/AboutThePage";
 import MovieDetails from "./components/MovieDetails";
 import CommentSection from "./components/CommentSection";
 import GenreFilter from "./components/GenreFilter";
-import fetchMoviesByGenre from "../api/fetchMoviesByGenre";
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [title, setTitle] = useState("");
-  const [genre, setGenre] = useState("")
+  const [genre, setGenre] = useState("");
   const [classOfMovieList, setClassOfMovieList] = useState(true);
   const [classOfAboutPage, setClassOfAboutPage] = useState(false);
   const [movieId, setMovieId] = useState("573a1391f29313caabcd9600");
-  const [comments, setComments] = useState([]);
-
   const [movieInfoComments, setMovieInfoComment] = useState(false);
   const [clickedMovie, setClickedMovie] = useState({
     plot: "Hello",
@@ -29,27 +26,46 @@ function App() {
     imdbRating: 8.4,
     poster: "asdasd",
   });
+  let genresArray = [
+    "Comedy",
+    "Drama",
+    "Romance",
+    "Film-Noir",
+    "Family",
+    "Fantasy",
+    "War",
+    "Animation",
+    "Mystery",
+    "Thriller",
+    "Crime",
+    "Documentary",
+    "Short",
+    "History",
+    "Horror",
+    "Action",
+    "Western",
+    "Sci-Fi",
+    "Adventure",
+    "Musical",
+    "Music",
+    "Biography",
+    "Sport",
+    "News",
+  ];
 
   useEffect(() => {
-    async function loadMovies(title) {
-      setMovies(await fetchMovies(title));
+    async function loadMovies(title, genre) {
+      setMovies(await fetchMovies(title, genre));
     }
-    loadMovies(title);
-  }, [title]);
-
-  useEffect(() => {
-    async function loadMoviesByGenre(genre) {
-      setMovies(await fetchMoviesByGenre(genre));
-    }
-    loadMoviesByGenre(genre);
-  }, [genre]);
+    loadMovies(title, genre);
+  }, [title, genre]);
 
   function changeMovies(event) {
     setTitle(event.target.value);
   }
 
   function filterByGenre(event) {
-    setGenre(event.target.value)
+    setGenre(event.target.value);
   }
 
   function passMovie(movie) {
@@ -61,29 +77,6 @@ function App() {
     setMovieId(movie._id);
   }
 
-  useEffect(() => {
-    async function loadComments(movieId) {
-      let data = await fetchComments(movieId);
-      setComments(data);
-    }
-    loadComments(movieId);
-  }, [movieId]);
-
-  console.log(comments);
-  let genresArray = []
-  function getAllMovieGenres() {
-    for(let x of movies) {
-      for(let i = 0; i < x.genres.length; i++) {
-        if(!genresArray.includes(x.genres[i])) {
-          genresArray.push(x.genres[i])
-        }
-      }
-    }
-    console.log(genresArray)
-  }
-
-  getAllMovieGenres()
-
   return (
     <div className="App">
       <Header
@@ -91,7 +84,6 @@ function App() {
           setClassOfMovieList(false);
           setClassOfAboutPage(true);
           setMovieInfoComment(false);
-
         }}
         homeButtonClick={() => {
           setClassOfMovieList(true);
@@ -105,7 +97,7 @@ function App() {
       {movieInfoComments && (
         <div>
           <MovieDetails movie={clickedMovie}></MovieDetails>
-          <CommentSection commentsArray={comments}></CommentSection>
+          <CommentSection movieID={movieId}></CommentSection>
         </div>
       )}
       {classOfMovieList && (
@@ -117,10 +109,8 @@ function App() {
             value={title}
             onChange={changeMovies}
           ></input>
-          <GenreFilter
-        genres={genresArray}
-        onChange={filterByGenre}/>
-        <Homepage movies={movies} onShowInfo={passMovie} />
+          <GenreFilter genres={genresArray} onChange={filterByGenre} />
+          <Homepage movies={movies} onShowInfo={passMovie} />
         </div>
       )}
     </div>

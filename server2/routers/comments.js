@@ -7,7 +7,7 @@ let bodyParser = require("body-parser");
 let jsonParser = bodyParser.json();
 
 mongoose.connect(
-  "mongodb+srv://admin:password1234@cluster0.itss7tr.mongodb.net/cinema"
+  "mongodb+srv://theresagri:XcsNUtaP9GJdX3i@cluster0.jycu5sj.mongodb.net/cinema"
 );
 
 const Comment = require("../model/Comment.js");

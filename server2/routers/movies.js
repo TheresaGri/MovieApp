@@ -7,7 +7,7 @@ let bodyParser = require("body-parser");
 let jsonParser = bodyParser.json();
 
 mongoose.connect(
-  "mongodb+srv://admin:password1234@cluster0.itss7tr.mongodb.net/cinema"
+  "mongodb+srv://theresagri:XcsNUtaP9GJdX3i@cluster0.jycu5sj.mongodb.net/cinema"
 );
 
 const Film = require("../model/Film.js");
@@ -23,7 +23,7 @@ moviesRouter.get("/", async (req, res) => {
       query = { year: req.query["year"] };
     }
     if (req.query["title"] !== undefined) {
-      query = { name: { $regex: req.query["title"], $options: "i" } };
+      query = { ...query, name: { $regex: req.query["title"], $options: "i" } };
     }
 
     if (req.query["sortAscending"] !== undefined) {
@@ -38,9 +38,11 @@ moviesRouter.get("/", async (req, res) => {
     }
 
     if (req.query["genre"] !== undefined) {
-      query = { genres: {$regex: req.query["genre"], $options: "i"} };
+      query = {
+        ...query,
+        genres: { $regex: new RegExp(req.query["genre"], "i") },
+      };
     }
-
     movies = await Film.find(query)
       .sort(sorting)
       .skip(page * limit)
