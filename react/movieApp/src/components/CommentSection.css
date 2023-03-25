@@ -1,11 +1,12 @@
 .comments {
   display: flex;
   flex-direction: column;
-  background-color: beige;
+  background-color: lightgray;
   color: black;
   border-radius: 25px;
   padding: 10px;
   align-items: flex-start;
+  margin-bottom: 15px;
 }
 
 .comments h1 {

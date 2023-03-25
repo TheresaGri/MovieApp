@@ -1,3 +1,5 @@
+import "./GenreFilter.css"
+
 export default function GenreFilter(props) {
     return (
     <select onChange={props.onChange}>

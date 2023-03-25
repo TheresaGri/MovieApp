@@ -32,3 +32,13 @@
   display: none;
   color: white;
 }
+
+.searchField {
+  height: 40px;
+  width: 400px;
+  border-radius: 13px;
+  border-color: red;
+  background-color: black;
+  color: white;
+
+}

@@ -1,6 +1,7 @@
 .popup {
 	border: 1px solid white;
 	padding: 5%;
+	margin-bottom: 20px;
 }
 
 .error {
@@ -9,4 +10,20 @@
 
 .field {
 	margin: 1%;
+}
+
+.comment-button {
+	height: 35px;
+	width: 150px;
+	margin-bottom: 20px;
+	border-radius: 20px;
+	background: 
+    linear-gradient(to right bottom, var(--slist)) 
+      border-box;
+	color: white;
+	border-color: red;
+}
+
+.comment-button:hover {
+	cursor: pointer;
 }

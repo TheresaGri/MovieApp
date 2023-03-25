@@ -34,7 +34,7 @@ export default function AddNewComment(props) {
 
   return (
     <div>
-      <button onClick={() => setIsOpenPopup(true)}>Add new comment</button>
+      <button onClick={() => setIsOpenPopup(true)} className="comment-button">Add new comment</button>
 
       {isOpenPopup ? (
         <div className="popup">

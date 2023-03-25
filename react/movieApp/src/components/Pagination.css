@@ -5,11 +5,11 @@ li {
 }
 
 a {
-	color: white !important;
+
 }
 
 a:hover {
-	color: bisque !important;
+	color: red !important;
 }
 
 .page-item {
@@ -20,4 +20,17 @@ a:hover {
 	display: flex;
 	justify-content: center !important;
 	align-items: center !important;
+}
+
+.page-link {
+	background-color: lightgray;
+	padding: 10px;
+	border-radius: 25px;
+	text-decoration: none;
+	background: 
+    linear-gradient(to right bottom, var(--slist)) 
+      border-box;
+	color: white;
+	border-style: solid;
+	border-color: red;
 }
