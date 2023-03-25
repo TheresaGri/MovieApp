@@ -1,3 +1,13 @@
 .aboutPage_container {
-  color: white;
+	color: white;
+}
+
+#text-about {
+	font-size: 25px !important;
+	padding: 5%;
+}
+
+.container-about {
+	display: flex;
+	justify-content: center;
 }

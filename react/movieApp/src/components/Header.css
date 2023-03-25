@@ -1,43 +1,44 @@
 .header_container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: row;
-  gap: 5%;
-  align-items: center;
-  color: white;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-direction: row;
+	gap: 5%;
+	align-items: center;
+	color: white;
 }
 
 .reactflix {
-  max-width: 30%;
-  height: auto;
-  position: relative; 
+	max-width: 30%;
+	height: auto;
+	position: relative;
+	padding: 5%;
 }
 
 .home-button {
-  position: absolute;
-  background-color: black;
-  color: white;
-   top: 50%; 
-  left: 40%;
-  transform: translateY(-50%);  
-  border: none;
+	position: absolute;
+	background-color: black;
+	color: white;
+	top: 50%;
+	left: 40%;
+	transform: translateY(-50%);
+	border: none;
 }
 
 .about-button {
-  position: absolute;
-   top: 50%; 
-  right: 30%;
-  background-color: black;
-  color: white;
-  transform: translateY(-50%);  
-  border: none;
+	position: absolute;
+	top: 50%;
+	right: 30%;
+	background-color: black;
+	color: white;
+	transform: translateY(-50%);
+	border: none;
 }
 
 .searchField_and_MovieList {
-  display: block;
+	display: block;
 }
 .searchField_and_MovieList_displayNone {
-  display: none;
+	display: none;
 }
